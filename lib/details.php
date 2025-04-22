@@ -11,15 +11,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $sql = 'select * from books WHERE idbooks = :id;';
 
     // on prepare la requete
-    $query =  $pdo->prepare($sql);
+    $stmt =  $pdo->prepare($sql);
 
     // on accroche les parametre 
-    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
     // execute la requete
-    $query->execute();
+    $stmt->execute();
     // on recupere le id 
-    $result = $query->fetch();
+    $result = $stmt->fetch();
     if (!$result) {
         $_SESSION['erreur'] = "livre invalide";
         header('location: index.php');
@@ -41,7 +41,13 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 <p><strong>Autour : </strong><?= $result['author'] ?></p>
                 <p><strong>catégorie : </strong><?= $result['categorie'] ?></p>
                 <p><strong>Date de publication : </strong><?= $result['date'] ?></p>
-                <p><a href="index.php"> Retour</a> <a href="edit.php?id=<?= $result['title'] ?>"> Modifier</a></p>
+
+            </section>
+            <div class="mt-3"><a href="index.php"> Retour</a> <a href="edit.php?id=<?= $result['title'] ?>"> Modifier</a>
+            </div>
+        </div>
+
+    </main>
 
 
 

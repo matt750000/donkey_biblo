@@ -13,18 +13,19 @@ require_once('./closebd.php');
 <body>
     <nav><?php include './nav.php' ?></nav>
     <div class="message-de-errour">
-        <?php
-        if (!empty($_SESSION['erreur'])) {
-            echo '<div class="alert alert-danger" role="alert">
-                ' . $_SESSION['erreur'] . '
-            </div>';
-            $_SESSION['erreur'] = '';
-        }
-        ?>
+        <?php if (!empty($_SESSION['erreur'])): ?>
+            <div class="alert alert-danger"><?php echo $_SESSION['erreur'];
+                                            unset($_SESSION['erreur']); ?></div>
+        <?php endif; ?>
+        <?php if (!empty($_SESSION['success'])): ?>
+            <div class="alert alert-success"><?php echo $_SESSION['success'];
+                                                unset($_SESSION['success']); ?></div>
+        <?php endif; ?>
     </div>
     <div class="button">
         <h1> Les liste de livres </h1>
         <a href="add.php" class="btn btn-primary">Ajouter un livre</a>
+        <a href="register.php" class="btn btn-primary">Créer un compte</a>
     </div>
     <main class="container">
         <div class="row">
@@ -37,6 +38,7 @@ require_once('./closebd.php');
                             <th scope="col">Auteur</th>
                             <th scope="col">Catégorie</th>
                             <th scope="col">Date</th>
+                            <th scope="col-">Actions</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -61,7 +63,7 @@ require_once('./closebd.php');
                                     <a href="details.php?id=<?= $titre['idbooks'] ?>">Voir</a>
                                 </td>
                                 <td>
-                                    <a href="details.php?id=<?= $titre['idbooks'] ?>">supprimer</a>
+                                    <a href="delete.php?id=<?= $titre['idbooks'] ?>">supprimer</a>
                                 </td>
 
                             </tr>
